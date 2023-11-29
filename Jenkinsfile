@@ -3,9 +3,14 @@ pipeline {
    stages {
         stage('Checkout') {
             steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/branchname']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'jenkins-user-github', url: 'https://github.com/aakashsehgal/FMU.git']]])
+                checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'GitHub_Cred', url: 'https://github.com/Pranesh-poojary/ShoppingCart.git']]])
                 sh "ls -lart ./*"
             }
-        }     
-    }
+        }
+      stage('maven build') {
+            steps {
+                bat "mvn clean package"
+            }
+       }
+   }
 }
